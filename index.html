@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Incidencia delictiva en México (2015–2025)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    :root{
+      --bg:#f4f6fb;
+      --card:#ffffff;
+      --text:#111827;
+      --muted:#6b7280;
+      --primary:#0f172a;
+      --accent:#2563eb;
+      --accent2:#10b981;
+      --warn:#f59e0b;
+      --radius:18px;
+      --shadow:0 14px 30px rgba(15,23,42,.10);
+      --max:1200px;
+      --line:#e5e7eb;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(900px 500px at 12% 0%, #e6efff 0%, transparent 60%),
+        radial-gradient(900px 500px at 88% 10%, #e7fff4 0%, transparent 55%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.65;
+    }
+
+    .wrap{max-width:var(--max); margin:auto; padding:0 18px;}
+
+    /* Header */
+    header{
+      background:linear-gradient(135deg,#0f172a,#1f2937);
+      color:#fff;
+      padding:64px 0 26px;
+      border-bottom:1px solid rgba(255,255,255,.16);
+      position:relative;
+      overflow:hidden;
+    }
+
+    header::before{
+      content:"";
+      position:absolute;
+      inset:-120px -80px auto -80px;
+      height:240px;
+      background:radial-gradient(circle at 20% 50%, rgba(37,99,235,.35), transparent 60%),
+                 radial-gradient(circle at 80% 50%, rgba(16,185,129,.30), transparent 62%);
+      filter:blur(8px);
+      pointer-events:none;
+    }
+
+    .hero{
+      position:relative;
+      display:grid;
+      gap:18px;
+      align-items:start;
+      padding:0 18px;
+    }
+
+    @media(min-width:980px){
+      .hero{grid-template-columns: 1.15fr .85fr;}
+    }
+
+    .badge{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:8px 12px;
+      border:1px solid rgba(255,255,255,.22);
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      font-size:13.5px;
+      width:max-content;
+      margin-bottom:10px;
+    }
+
+    h1{
+      font-size:36px;
+      margin:0 0 10px;
+      letter-spacing:.2px;
+      line-height:1.2;
+    }
+
+    header p{
+      max-width:950px;
+      color:#e5e7eb;
+      margin:0;
+      font-size:15.5px;
+    }
+
+    /* Sticky nav */
+    .topnav{
+      position:sticky;
+      top:0;
+      z-index:40;
+      background:rgba(244,246,251,.88);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--line);
+    }
+
+    .topnav .navwrap{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      padding:10px 18px;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .links{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .links a{
+      text-decoration:none;
+      color:var(--primary);
+      font-size:13.5px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:#fff;
+    }
+    .links a:hover{border-color:rgba(37,99,235,.35);}
+
+    .navcta{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .btn{
+      border:1px solid rgba(37,99,235,.35);
+      background:rgba(37,99,235,.08);
+      color:var(--primary);
+      padding:9px 12px;
+      border-radius:12px;
+      font-weight:800;
+      cursor:pointer;
+      font-size:13.5px;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      line-height:1;
+    }
+    .btn:hover{background:rgba(37,99,235,.12);}
+    .btnPrimary{
+      background:var(--accent);
+      color:#fff;
+      border-color:transparent;
+    }
+    .btnPrimary:hover{background:#1d4ed8;}
+    .btnGhost{
+      background:#fff;
+      border:1px solid var(--line);
+      color:var(--primary);
+    }
+
+    /* Sections / cards */
+    main{padding:22px 0 54px;}
+    section{margin:26px 0;}
+
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:24px;
+      border:1px solid rgba(15,23,42,.06);
+    }
+
+    h2{margin:0 0 10px; font-size:22px;}
+    h3{margin:14px 0 8px; font-size:16px;}
+    p{margin:10px 0;}
+
+    .grid{display:grid; gap:18px;}
+    @media(min-width:900px){
+      .grid-3{grid-template-columns:repeat(3,1fr);}
+      .grid-2{grid-template-columns:repeat(2,1fr);}
+    }
+
+    /* KPI */
+    .kpi{
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px;
+      background:linear-gradient(180deg,#ffffff,#fbfcff);
+      position:relative;
+      overflow:hidden;
+    }
+    .kpi::after{
+      content:"";
+      position:absolute;
+      inset:auto -60px -70px auto;
+      width:180px;
+      height:180px;
+      background:radial-gradient(circle at 40% 40%, rgba(37,99,235,.18), transparent 60%);
+      transform:rotate(14deg);
+    }
+    .kpi .top{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:var(--muted);
+      font-size:13px;
+      position:relative;
+      z-index:1;
+    }
+    .dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 0 4px rgba(37,99,235,.12);
+    }
+    .kpi strong{
+      display:block;
+      font-size:28px;
+      margin-top:6px;
+      position:relative;
+      z-index:1;
+    }
+    .kpi small{
+      display:block;
+      margin-top:6px;
+      color:var(--muted);
+      position:relative;
+      z-index:1;
+    }
+
+    ul{padding-left:18px;}
+    li{margin:6px 0;}
+
+    .note{
+      background:#f9fafb;
+      border:1px dashed #d1d5db;
+      border-radius:14px;
+      padding:14px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    /* Dashboard */
+    .dashHeader{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+    .dashActions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .vizWrap{
+      margin-top:14px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      overflow:hidden;
+      background:#fff;
+    }
+
+    iframe{
+      width:100%;
+      height:850px;
+      border:0;
+      display:block;
+    }
+
+    /* Modal (vista grande dentro de la misma página) */
+    .modal{
+      position:fixed;
+      inset:0;
+      background:rgba(15,23,42,.62);
+      display:none;
+      z-index:9999;
+      padding:14px;
+    }
+    .modalContent{
+      background:#fff;
+      border-radius:16px;
+      overflow:hidden;
+      width:min(1400px, 100%);
+      height:92vh;
+      margin:auto;
+      display:flex;
+      flex-direction:column;
+      border:1px solid rgba(255,255,255,.25);
+      box-shadow:0 22px 60px rgba(0,0,0,.35);
+    }
+    .modalTop{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      padding:12px 14px;
+      border-bottom:1px solid var(--line);
+      background:linear-gradient(180deg,#ffffff,#fbfbff);
+    }
+    .modalTitle{
+      font-weight:900;
+      color:var(--primary);
+    }
+    #tableauVizBig{
+      flex:1;
+      width:100%;
+      height:100%;
+      border:0;
+      display:block;
+    }
+
+    footer{
+      text-align:center;
+      padding:30px 18px;
+      color:var(--muted);
+      font-size:14px;
+      border-top:1px solid var(--line);
+      background:#fff;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="wrap hero">
+    <div>
+      <div class="badge">📌 Tableau Public · Dashboard interactivo · 2015–2025</div>
+      <h1>Incidencia delictiva en México (2015–2025)</h1>
+      <p>
+        Visualización interactiva basada en registros de incidencia delictiva en México,
+        organizada por entidad federativa, sexo, rango de edad, periodo temporal (año y mes)
+        y clasificación del delito (tipo, subtipo, modalidad y bien jurídico afectado).
+      </p>
+    </div>
+
+    <div class="card" style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.18); color:#fff;">
+      <h3 style="margin-top:0;">📌 ¿Qué puedes hacer aquí?</h3>
+      <ul style="margin:0; color:#e5e7eb;">
+        <li>Usar el filtro de <strong>Año</strong> para comparar periodos.</li>
+        <li>Interpretar cómo cambian las distribuciones entre las categorías mostradas.</li>
+        <li>Consultar valores exactos pasando el cursor sobre barras, líneas o áreas.</li>
+        <li>Explorar el comportamiento del fenómeno a lo largo del tiempo (2015–2025).</li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<!-- NAV sticky -->
+<div class="topnav">
+  <div class="wrap navwrap">
+    <div class="links">
+      <a href="#contexto">Contexto</a>
+      <a href="#bd">Base de datos</a>
+      <a href="#kpis">Indicadores</a>
+      <a href="#analisis">Qué se analiza</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#lectura">Cómo leer</a>
+      <a href="#notas">Notas</a>
+    </div>
+
+    <div class="navcta">
+      <!-- ✅ Botón 1: vista grande dentro de la misma página -->
+      <button class="btn btnPrimary" id="openModalTop" type="button">
+        Ver en grande (misma página)
+      </button>
+
+      <!-- ✅ Botón 2: abrir en Tableau Public -->
+      <a class="btn"
+         href="https://public.tableau.com/views/DashboardinteractivoIncidenciadelictivaenMxico/DashboardinteractivoIncidenciadelictivaenMxico?:showVizHome=yes"
+         target="_blank" rel="noopener">
+        Abrir en Tableau Public
+      </a>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <!-- CONTEXTO / IMPORTANCIA -->
+  <section class="card" id="contexto">
+    <h2>🧩 ¿De qué trata esta visualización y por qué es importante?</h2>
+    <p>
+      Esta página presenta una exploración visual e interactiva de la <strong>incidencia delictiva en México</strong> para el periodo
+      <strong>2015–2025</strong>. El tablero permite observar cómo se distribuyen los casos en distintas categorías y cómo cambian al
+      comparar años específicos.
+    </p>
+
+    <div class="note" style="margin-top:12px;">
+      <strong>Importancia del tema:</strong> La incidencia delictiva es un fenómeno con impacto social y de seguridad pública. Sin embargo,
+      con frecuencia se discute de manera general sin profundizar en <em>variaciones a través del tiempo</em> o en la forma en que se distribuye
+      por categorías. Una visualización interactiva permite consultar la información de forma clara, detectar cambios y comunicar hallazgos con base en datos.
+    </div>
+  </section>
+
+  <!-- Base de datos -->
+  <section class="card" id="bd">
+    <h2>📂 Descripción general de la base de datos</h2>
+    <p>
+      La base de datos utilizada contiene información <strong>agregada</strong> de incidencia delictiva registrada en México entre
+      <strong>2015 y 2025</strong>. En este conjunto de datos, cada fila representa una combinación de categorías (por ejemplo:
+      <em>Entidad + Año + Mes + Sexo + Rango de edad + Clasificación del delito</em>) y la medida principal <strong>Casos</strong>, que corresponde
+      al <strong>recuento de incidencias registradas</strong> para esa combinación.
+    </p>
+
+    <p>
+      El dataset integra variables <strong>geográficas</strong> (entidad), <strong>demográficas</strong> (sexo y rango de edad),
+      <strong>temporales</strong> (año y mes) y de <strong>clasificación del delito</strong> (tipo, subtipo, modalidad y bien jurídico afectado).
+      Esto permite analizar la incidencia desde distintos enfoques, especialmente <strong>la evolución temporal</strong> y la comparación por categorías.
+    </p>
+
+    <div class="note" style="margin-top:12px;">
+      <strong>Interpretación responsable:</strong> “Casos” representa recuentos agregados, por lo que este proyecto se enfoca en un análisis
+      <strong>descriptivo</strong> (comparación de magnitudes y cambios).
+    </div>
+
+    <h3>📌 Indicadores y visualizaciones incluidas</h3>
+    <ul>
+      <li><strong>Indicadores:</strong> total de casos registrados (y resúmenes visibles en el tablero por categorías).</li>
+      <li><strong>Visualizaciones:</strong> gráficas de <strong>barras</strong> (comparación), <strong>líneas</strong> y <strong>áreas</strong> (tendencias temporales).</li>
+      <li><strong>Filtro disponible:</strong> <strong>Año</strong>, que permite comparar el comportamiento del fenómeno por periodo.</li>
+    </ul>
+  </section>
+
+  <!-- Indicadores -->
+  <section class="grid grid-3" id="kpis">
+    <div class="kpi">
+      <div class="top"><span class="dot"></span>Periodo analizado</div>
+      <strong>2015 – 2025</strong>
+      <small>Dimensión temporal por año y mes.</small>
+    </div>
+
+    <div class="kpi">
+      <div class="top">
+        <span class="dot" style="background:var(--accent2); box-shadow:0 0 0 4px rgba(16,185,129,.14);"></span>
+        Total de casos
+      </div>
+      <strong>3,588,281</strong>
+      <small>Suma del campo “Casos” en el periodo.</small>
+    </div>
+
+    <div class="kpi">
+      <div class="top">
+        <span class="dot" style="background:var(--warn); box-shadow:0 0 0 4px rgba(245,158,11,.16);"></span>
+        Variables clave
+      </div>
+      <strong>Entidad / Sexo / Edad</strong>
+      <small>Categorías principales incluidas en la base.</small>
+    </div>
+  </section>
+
+  <!-- Qué se puede analizar -->
+  <section class="card" id="analisis">
+    <h2>🔍 ¿Qué permite analizar esta visualización?</h2>
+    <div class="grid grid-2">
+      <div>
+        <ul>
+          <li><strong>Cambios en el tiempo:</strong> observar incrementos o disminuciones a lo largo de los años (2015–2025).</li>
+          <li><strong>Comparación por categorías:</strong> revisar cómo se distribuyen los casos entre las variables mostradas en el tablero.</li>
+          <li><strong>Lectura descriptiva:</strong> identificar patrones visuales de concentración y variación al comparar años.</li>
+          <li><strong>Consulta de detalle:</strong> ver valores exactos mediante tooltips (pasando el cursor).</li>
+        </ul>
+      </div>
+
+      <div class="note">
+        <strong>Tip de exploración:</strong> selecciona un <strong>Año</strong> distinto y compara visualmente:
+        qué categorías aumentan, cuáles disminuyen y cuáles se mantienen estables. Esta comparación ayuda a identificar cambios relevantes
+        dentro del periodo.
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section class="card" id="dashboard">
+    <div class="dashHeader">
+      <div>
+        <h2 style="margin-bottom:6px;">📊 Dashboard interactivo</h2>
+        <p style="margin:0; color:var(--muted);">
+          Visualización incrustada desde Tableau Public. El filtro visible disponible es <strong>Año</strong>.
+        </p>
+      </div>
+
+      <div class="dashActions">
+        <!-- ✅ Botón 1: vista grande dentro de la misma página -->
+        <button class="btn btnPrimary" id="openViz2" type="button">
+          Ver en grande (misma página)
+        </button>
+
+        <!-- ✅ Botón 2: abrir en Tableau Public -->
+        <a class="btn"
+           href="https://public.tableau.com/views/DashboardinteractivoIncidenciadelictivaenMxico/DashboardinteractivoIncidenciadelictivaenMxico?:showVizHome=yes"
+           target="_blank" rel="noopener">
+          Abrir en Tableau Public
+        </a>
+      </div>
+    </div>
+
+    <div class="vizWrap">
+      <iframe
+        id="tableauViz"
+        src="https://public.tableau.com/views/DashboardinteractivoIncidenciadelictivaenMxico/DashboardinteractivoIncidenciadelictivaenMxico?:showVizHome=no&:language=es-ES&:display_count=y&:toolbar=yes"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <div class="note" style="margin-top:16px;">
+      <strong>🧭 Guía rápida de interacción</strong>
+      <ol style="margin:10px 0 0 20px; line-height:1.6;">
+        <li><strong>Selecciona el Año</strong> en el filtro para definir el periodo de análisis.</li>
+        <li><strong>Observa los gráficos</strong> para comparar la distribución de casos por las categorías mostradas.</li>
+        <li><strong>Cambia el año</strong> y compara diferencias: qué aumenta, qué disminuye y qué se mantiene similar.</li>
+        <li><strong>Pasa el cursor</strong> sobre barras, líneas o áreas para ver detalles (tooltips).</li>
+        <li>Para volver a una vista general, <strong>restablece el filtro de Año</strong> (por ejemplo, seleccionando “Todos” si está disponible).</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Cómo leer -->
+  <section class="card" id="lectura">
+    <h2>🧭 Interpretación general de los gráficos</h2>
+    <ul>
+      <li><strong>Barras:</strong> comparan magnitudes entre categorías (por ejemplo, entidades o grupos).</li>
+      <li><strong>Líneas:</strong> muestran la evolución temporal y ayudan a detectar aumentos o descensos.</li>
+      <li><strong>Áreas:</strong> facilitan la lectura del volumen y la intensidad de cambio en el tiempo.</li>
+      <li><strong>Filtro Año:</strong> actualiza el conjunto de resultados en todas las visualizaciones del tablero.</li>
+    </ul>
+  </section>
+
+  <!-- Notas -->
+  <section class="card" id="notas">
+    <h2>⚠️ Consideraciones</h2>
+    <div class="note">
+      <ul style="margin:0;">
+        <li>Los datos representan recuentos (casos), no tasas por población.</li>
+        <li>Existen categorías como “No identificado” y “No especificado” que deben considerarse al interpretar.</li>
+        <li>La visualización depende de conexión a internet (Tableau Public).</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>
+    <strong>Alumnos:</strong> ZURIEL · RENE ALEXIS · YASMIN<br>
+    <strong>Fecha:</strong> Enero 2026
+  </p>
+</footer>
+
+<!-- ✅ MODAL: Vista grande dentro de la misma página -->
+<div class="modal" id="vizModal" aria-hidden="true">
+  <div class="modalContent">
+    <div class="modalTop">
+      <span class="modalTitle">Dashboard en pantalla completa (misma página)</span>
+      <button class="btn btnGhost" type="button" id="closeViz">Cerrar</button>
+    </div>
+
+    <iframe
+      id="tableauVizBig"
+      src="https://public.tableau.com/views/DashboardinteractivoIncidenciadelictivaenMxico/DashboardinteractivoIncidenciadelictivaenMxico?:showVizHome=no&:language=es-ES&:display_count=y&:toolbar=yes"
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById("vizModal");
+
+  // Botones que abren el modal (arriba y en la sección Dashboard)
+  const openTop = document.getElementById("openModalTop");
+  const openDash = document.getElementById("openViz2");
+
+  // Botón cerrar modal
+  const closeBtn = document.getElementById("closeViz");
+
+  function openModal(){
+    modal.style.display = "block";
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal(){
+    modal.style.display = "none";
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  openTop.addEventListener("click", openModal);
+  openDash.addEventListener("click", openModal);
+  closeBtn.addEventListener("click", closeModal);
+
+  // Clic fuera del contenido
+  modal.addEventListener("click", (e) => {
+    if(e.target === modal) closeModal();
+  });
+
+  // Tecla Escape
+  document.addEventListener("keydown", (e) => {
+    if(e.key === "Escape" && modal.style.display === "block") closeModal();
+  });
+</script>
+
+</body>
+</html>
