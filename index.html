@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Incidencia delictiva en México (2015–2025)</title>
+  <title>Incidencia delictiva en México (2015–2026)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
@@ -151,10 +151,7 @@
       cursor:pointer;
       font-size:13.5px;
       text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      line-height:1;
+      display:inline-block;
     }
     .btn:hover{background:rgba(37,99,235,.12);}
     .btnPrimary{
@@ -163,11 +160,6 @@
       border-color:transparent;
     }
     .btnPrimary:hover{background:#1d4ed8;}
-    .btnGhost{
-      background:#fff;
-      border:1px solid var(--line);
-      color:var(--primary);
-    }
 
     /* Sections / cards */
     main{padding:22px 0 54px;}
@@ -264,7 +256,6 @@
       display:flex;
       gap:10px;
       flex-wrap:wrap;
-      align-items:center;
     }
 
     .vizWrap{
@@ -282,7 +273,7 @@
       display:block;
     }
 
-    /* Modal (vista grande dentro de la misma página) */
+    /* Fullscreen modal */
     .modal{
       position:fixed;
       inset:0;
@@ -316,6 +307,11 @@
       font-weight:900;
       color:var(--primary);
     }
+    .btnGhost{
+      background:#fff;
+      border:1px solid var(--line);
+      color:var(--primary);
+    }
     #tableauVizBig{
       flex:1;
       width:100%;
@@ -340,22 +336,22 @@
 <header>
   <div class="wrap hero">
     <div>
-      <div class="badge">📌 Tableau Public · Dashboard interactivo · 2015–2025</div>
-      <h1>Incidencia delictiva en México (2015–2025)</h1>
+      <div class="badge">📌 Tableau Public · Dashboard interactivo · 2015–2026</div>
+      <h1>Incidencia delictiva en México (2015–2026)</h1>
       <p>
-        Visualización interactiva basada en registros de incidencia delictiva en México,
-        organizada por entidad federativa, sexo, rango de edad, periodo temporal (año y mes)
-        y clasificación del delito (tipo, subtipo, modalidad y bien jurídico afectado).
+        Página informativa con visualización interactiva basada en registros agregados de incidencia delictiva en México.
+        La base permite explorar cambios en el tiempo (año/mes), variaciones por entidad federativa y distribuciones demográficas
+        (sexo y rango de edad), además de la clasificación del delito (tipo, subtipo, modalidad y bien jurídico afectado).
       </p>
     </div>
 
     <div class="card" style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.18); color:#fff;">
-      <h3 style="margin-top:0;">📌 ¿Qué puedes hacer aquí?</h3>
+      <h3 style="margin-top:0;">📌 ¿Qué encontrarás en este tablero?</h3>
       <ul style="margin:0; color:#e5e7eb;">
-        <li>Usar el filtro de <strong>Año</strong> para comparar periodos.</li>
-        <li>Interpretar cómo cambian las distribuciones entre las categorías mostradas.</li>
-        <li>Consultar valores exactos pasando el cursor sobre barras, líneas o áreas.</li>
-        <li>Explorar el comportamiento del fenómeno a lo largo del tiempo (2015–2025).</li>
+        <li>Un <strong>filtro por Año</strong> para comparar periodos (2015–2026).</li>
+        <li>Indicadores y gráficos para observar <strong>tendencias</strong> y <strong>cambios</strong> en el tiempo.</li>
+        <li>Distribución de casos por <strong>entidad</strong> y por <strong>categorías demográficas</strong>.</li>
+        <li>Visualizaciones de <strong>barras, líneas y áreas</strong> para facilitar la lectura.</li>
       </ul>
     </div>
   </div>
@@ -369,23 +365,17 @@
       <a href="#bd">Base de datos</a>
       <a href="#kpis">Indicadores</a>
       <a href="#analisis">Qué se analiza</a>
+      <a href="#predicciones">Predicciones</a>
       <a href="#dashboard">Dashboard</a>
       <a href="#lectura">Cómo leer</a>
       <a href="#notas">Notas</a>
     </div>
 
     <div class="navcta">
-      <!-- ✅ Botón 1: vista grande dentro de la misma página -->
-      <button class="btn btnPrimary" id="openModalTop" type="button">
-        Ver en grande (misma página)
-      </button>
-
-      <!-- ✅ Botón 2: abrir en Tableau Public -->
+      <button class="btn btnPrimary" id="openViz" type="button">Ver vista amplia (en esta página)</button>
       <a class="btn"
          href="https://public.tableau.com/views/DashboardinteractivoIncidenciadelictivaenMxico/DashboardinteractivoIncidenciadelictivaenMxico?:showVizHome=yes"
-         target="_blank" rel="noopener">
-        Abrir en Tableau Public
-      </a>
+         target="_blank" rel="noopener">Abrir en Tableau Public</a>
     </div>
   </div>
 </div>
@@ -397,14 +387,14 @@
     <h2>🧩 ¿De qué trata esta visualización y por qué es importante?</h2>
     <p>
       Esta página presenta una exploración visual e interactiva de la <strong>incidencia delictiva en México</strong> para el periodo
-      <strong>2015–2025</strong>. El tablero permite observar cómo se distribuyen los casos en distintas categorías y cómo cambian al
-      comparar años específicos.
+      <strong>2015–2026</strong>. El objetivo es facilitar la lectura de datos que suelen discutirse de forma general,
+      permitiendo identificar cambios a lo largo del tiempo y diferencias entre categorías.
     </p>
 
     <div class="note" style="margin-top:12px;">
-      <strong>Importancia del tema:</strong> La incidencia delictiva es un fenómeno con impacto social y de seguridad pública. Sin embargo,
-      con frecuencia se discute de manera general sin profundizar en <em>variaciones a través del tiempo</em> o en la forma en que se distribuye
-      por categorías. Una visualización interactiva permite consultar la información de forma clara, detectar cambios y comunicar hallazgos con base en datos.
+      <strong>Importancia del tema:</strong> La incidencia delictiva es un fenómeno con impacto social y de seguridad pública.
+      Al visualizarla por periodos y categorías, es posible detectar patrones y generar insumos descriptivos que apoyen la
+      discusión informada (por ejemplo, en un contexto académico o institucional).
     </div>
   </section>
 
@@ -412,28 +402,28 @@
   <section class="card" id="bd">
     <h2>📂 Descripción general de la base de datos</h2>
     <p>
-      La base de datos utilizada contiene información <strong>agregada</strong> de incidencia delictiva registrada en México entre
-      <strong>2015 y 2025</strong>. En este conjunto de datos, cada fila representa una combinación de categorías (por ejemplo:
-      <em>Entidad + Año + Mes + Sexo + Rango de edad + Clasificación del delito</em>) y la medida principal <strong>Casos</strong>, que corresponde
+      La base de datos utilizada contiene información <strong>agregada</strong> sobre incidencia delictiva registrada en México entre
+      <strong>2015 y 2026</strong>. Cada fila representa una combinación de categorías (por ejemplo:
+      <em>Entidad + Año + Mes + Sexo + Rango de edad + Tipo de delito</em>) y la medida principal <strong>Casos</strong>, que corresponde
       al <strong>recuento de incidencias registradas</strong> para esa combinación.
     </p>
 
     <p>
-      El dataset integra variables <strong>geográficas</strong> (entidad), <strong>demográficas</strong> (sexo y rango de edad),
+      El dataset integra variables <strong>geográficas</strong> (entidad y clave), <strong>demográficas</strong> (sexo y rango de edad),
       <strong>temporales</strong> (año y mes) y de <strong>clasificación del delito</strong> (tipo, subtipo, modalidad y bien jurídico afectado).
-      Esto permite analizar la incidencia desde distintos enfoques, especialmente <strong>la evolución temporal</strong> y la comparación por categorías.
+      Esto permite analizar la incidencia desde tres enfoques principales: <strong>evolución temporal</strong>, <strong>distribución territorial</strong>
+      y <strong>comparación por categorías</strong>.
     </p>
 
     <div class="note" style="margin-top:12px;">
-      <strong>Interpretación responsable:</strong> “Casos” representa recuentos agregados, por lo que este proyecto se enfoca en un análisis
-      <strong>descriptivo</strong> (comparación de magnitudes y cambios).
+      <strong>Interpretación responsable:</strong> “Casos” representa recuentos agregados. Los resultados son <strong>descriptivos</strong>.
     </div>
 
-    <h3>📌 Indicadores y visualizaciones incluidas</h3>
+    <h3>¿Qué contiene y qué tipo de visualizaciones se utilizan?</h3>
     <ul>
-      <li><strong>Indicadores:</strong> total de casos registrados (y resúmenes visibles en el tablero por categorías).</li>
-      <li><strong>Visualizaciones:</strong> gráficas de <strong>barras</strong> (comparación), <strong>líneas</strong> y <strong>áreas</strong> (tendencias temporales).</li>
-      <li><strong>Filtro disponible:</strong> <strong>Año</strong>, que permite comparar el comportamiento del fenómeno por periodo.</li>
+      <li><strong>Indicadores:</strong> total de casos y resúmenes por categorías mostradas en el tablero.</li>
+      <li><strong>Visualizaciones:</strong> gráficas de <strong>barras</strong> (comparación), <strong>líneas</strong> y <strong>áreas</strong> (tendencias en el tiempo).</li>
+      <li><strong>Filtro:</strong> selección por <strong>Año</strong> (único filtro visible en el tablero actual).</li>
     </ul>
   </section>
 
@@ -441,26 +431,24 @@
   <section class="grid grid-3" id="kpis">
     <div class="kpi">
       <div class="top"><span class="dot"></span>Periodo analizado</div>
-      <strong>2015 – 2025</strong>
-      <small>Dimensión temporal por año y mes.</small>
+      <strong>2015 – 2026</strong>
+      <small>Disponible por año y mes.</small>
     </div>
-
     <div class="kpi">
       <div class="top">
         <span class="dot" style="background:var(--accent2); box-shadow:0 0 0 4px rgba(16,185,129,.14);"></span>
-        Total de casos
+        Total de casos (referencia)
       </div>
-      <strong>3,588,281</strong>
-      <small>Suma del campo “Casos” en el periodo.</small>
+      <strong>3,588,281+</strong>
+      <small>Puede variar al filtrar por Año.</small>
     </div>
-
     <div class="kpi">
       <div class="top">
         <span class="dot" style="background:var(--warn); box-shadow:0 0 0 4px rgba(245,158,11,.16);"></span>
-        Variables clave
+        Filtro visible
       </div>
-      <strong>Entidad / Sexo / Edad</strong>
-      <small>Categorías principales incluidas en la base.</small>
+      <strong>Año</strong>
+      <small>Comparación entre periodos en el tablero.</small>
     </div>
   </section>
 
@@ -470,18 +458,38 @@
     <div class="grid grid-2">
       <div>
         <ul>
-          <li><strong>Cambios en el tiempo:</strong> observar incrementos o disminuciones a lo largo de los años (2015–2025).</li>
-          <li><strong>Comparación por categorías:</strong> revisar cómo se distribuyen los casos entre las variables mostradas en el tablero.</li>
-          <li><strong>Lectura descriptiva:</strong> identificar patrones visuales de concentración y variación al comparar años.</li>
-          <li><strong>Consulta de detalle:</strong> ver valores exactos mediante tooltips (pasando el cursor).</li>
+          <li><strong>Cambios en el tiempo:</strong> observar incrementos o disminuciones a lo largo de los años.</li>
+          <li><strong>Distribución territorial:</strong> comparar cómo se concentran los casos por entidad.</li>
+          <li><strong>Delitos más frecuentes:</strong> identificar la incidencia predominante según el año seleccionado.</li>
+          <li><strong>Distribución demográfica:</strong> analizar diferencias por sexo y rango de edad.</li>
+          <li><strong>Patrones mensuales:</strong> explorar variaciones por mes (posible estacionalidad).</li>
         </ul>
       </div>
-
       <div class="note">
-        <strong>Tip de exploración:</strong> selecciona un <strong>Año</strong> distinto y compara visualmente:
-        qué categorías aumentan, cuáles disminuyen y cuáles se mantienen estables. Esta comparación ayuda a identificar cambios relevantes
-        dentro del periodo.
+        <strong>Tip de exploración:</strong> utiliza el filtro de <strong>Año</strong> para cambiar el periodo.
+        Al modificar el año, el tablero se actualiza y permite comparar resultados entre periodos.
       </div>
+    </div>
+  </section>
+
+  <!-- ✅ PREDICCIONES (VISIBLE) -->
+  <section class="card" id="predicciones">
+    <h2>🔮 Predicciones (proyección exploratoria para 2026)</h2>
+    <p>
+      A partir de las tendencias observadas en el periodo <strong>2015–2025</strong>, se pueden identificar etapas de incremento,
+      estabilización o disminución en los casos totales. Con base en esa lectura, es posible proponer una <strong>proyección exploratoria</strong>
+      para el año <strong>2026</strong>.
+    </p>
+
+    <p>
+      Bajo un escenario en el que se mantenga el comportamiento de los años más recientes, se esperaría que en 2026 exista una
+      <strong>reducción moderada</strong> en el total de casos. De manera ilustrativa (sin ser un modelo estadístico formal), esta proyección
+      se expresa como un posible descenso aproximado de <strong>20% a 30%</strong> frente a los años con mayor concentración de casos.
+    </p>
+
+    <div class="note" style="margin-top:12px;">
+      <strong>Nota metodológica:</strong> esta proyección es <em>descriptiva</em> y se basa en interpretación visual del histórico.
+      No garantiza resultados futuros ni sustituye un análisis de series de tiempo.
     </div>
   </section>
 
@@ -496,17 +504,10 @@
       </div>
 
       <div class="dashActions">
-        <!-- ✅ Botón 1: vista grande dentro de la misma página -->
-        <button class="btn btnPrimary" id="openViz2" type="button">
-          Ver en grande (misma página)
-        </button>
-
-        <!-- ✅ Botón 2: abrir en Tableau Public -->
+        <button class="btn btnPrimary" type="button" id="openViz2">Vista amplia (en esta página)</button>
         <a class="btn"
            href="https://public.tableau.com/views/DashboardinteractivoIncidenciadelictivaenMxico/DashboardinteractivoIncidenciadelictivaenMxico?:showVizHome=yes"
-           target="_blank" rel="noopener">
-          Abrir en Tableau Public
-        </a>
+           target="_blank" rel="noopener">Abrir en Tableau Public</a>
       </div>
     </div>
 
@@ -522,22 +523,22 @@
       <strong>🧭 Guía rápida de interacción</strong>
       <ol style="margin:10px 0 0 20px; line-height:1.6;">
         <li><strong>Selecciona el Año</strong> en el filtro para definir el periodo de análisis.</li>
-        <li><strong>Observa los gráficos</strong> para comparar la distribución de casos por las categorías mostradas.</li>
+        <li><strong>Observa los gráficos</strong> del tablero para comparar la distribución de casos por las categorías mostradas.</li>
         <li><strong>Cambia el año</strong> y compara diferencias: qué aumenta, qué disminuye y qué se mantiene similar.</li>
-        <li><strong>Pasa el cursor</strong> sobre barras, líneas o áreas para ver detalles (tooltips).</li>
-        <li>Para volver a una vista general, <strong>restablece el filtro de Año</strong> (por ejemplo, seleccionando “Todos” si está disponible).</li>
+        <li><strong>Pasa el cursor</strong> sobre barras, líneas o áreas para consultar detalles (tooltips).</li>
+        <li>Para volver a una vista general, restablece el filtro de <strong>Año</strong> (por ejemplo, seleccionando “Todos” si está disponible).</li>
       </ol>
     </div>
   </section>
 
   <!-- Cómo leer -->
   <section class="card" id="lectura">
-    <h2>🧭 Interpretación general de los gráficos</h2>
+    <h2>🧭 Interpretación general de las visualizaciones</h2>
     <ul>
-      <li><strong>Barras:</strong> comparan magnitudes entre categorías (por ejemplo, entidades o grupos).</li>
+      <li><strong>Barras:</strong> comparan magnitud de casos entre categorías.</li>
       <li><strong>Líneas:</strong> muestran la evolución temporal y ayudan a detectar aumentos o descensos.</li>
-      <li><strong>Áreas:</strong> facilitan la lectura del volumen y la intensidad de cambio en el tiempo.</li>
-      <li><strong>Filtro Año:</strong> actualiza el conjunto de resultados en todas las visualizaciones del tablero.</li>
+      <li><strong>Áreas:</strong> facilitan la lectura del volumen acumulado y cambios de intensidad en el tiempo.</li>
+      <li><strong>Filtro Año:</strong> permite comparar el comportamiento del tablero entre periodos.</li>
     </ul>
   </section>
 
@@ -562,11 +563,11 @@
   </p>
 </footer>
 
-<!-- ✅ MODAL: Vista grande dentro de la misma página -->
+<!-- Modal Pantalla Completa (VISTA AMPLIA EN LA MISMA PÁGINA) -->
 <div class="modal" id="vizModal" aria-hidden="true">
   <div class="modalContent">
     <div class="modalTop">
-      <span class="modalTitle">Dashboard en pantalla completa (misma página)</span>
+      <span class="modalTitle">Dashboard (vista amplia en esta página)</span>
       <button class="btn btnGhost" type="button" id="closeViz">Cerrar</button>
     </div>
 
@@ -580,36 +581,29 @@
 
 <script>
   const modal = document.getElementById("vizModal");
-
-  // Botones que abren el modal (arriba y en la sección Dashboard)
-  const openTop = document.getElementById("openModalTop");
-  const openDash = document.getElementById("openViz2");
-
-  // Botón cerrar modal
-  const closeBtn = document.getElementById("closeViz");
+  const open1 = document.getElementById("openViz");
+  const open2 = document.getElementById("openViz2");
+  const close = document.getElementById("closeViz");
 
   function openModal(){
     modal.style.display = "block";
     modal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
   }
-
   function closeModal(){
     modal.style.display = "none";
     modal.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
   }
 
-  openTop.addEventListener("click", openModal);
-  openDash.addEventListener("click", openModal);
-  closeBtn.addEventListener("click", closeModal);
+  open1.addEventListener("click", openModal);
+  open2.addEventListener("click", openModal);
+  close.addEventListener("click", closeModal);
 
-  // Clic fuera del contenido
   modal.addEventListener("click", (e) => {
     if(e.target === modal) closeModal();
   });
 
-  // Tecla Escape
   document.addEventListener("keydown", (e) => {
     if(e.key === "Escape" && modal.style.display === "block") closeModal();
   });
